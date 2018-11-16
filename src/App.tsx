@@ -30,10 +30,6 @@ const styles = (theme: Theme) => createStyles({
     flexWrap: 'wrap',
     width: '100%',
   },
-  status: {
-    width: '100%',
-    margin: theme.spacing.unit,
-  },
 } as AppStyles);
 
 class App extends React.Component<WithStyles<keyof AppStyles>> {

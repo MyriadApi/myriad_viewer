@@ -7,8 +7,8 @@ import * as React from 'react';
 import { CSSProperties } from '@material-ui/core/styles/withStyles';
 import { inject } from 'src/TypedStateStore/inject';
 import { getState,  IStore, IActions, getActions } from '../../store';
-import { Card, CardHeader, Avatar, Typography, Divider } from '@material-ui/core';
-import { sensorViewList, SensorView } from './constants';
+import { Card, CardHeader, Avatar, Typography, CardContent } from '@material-ui/core';
+import { sensorViewList, SensorView, createTimeStamp } from './constants';
 import { BaseParam, Sensors } from 'src/store/store';
 
 interface AppStyles {
@@ -23,7 +23,7 @@ const styles = (theme: Theme) => createStyles({
   container: {
     width: '100%',
     display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, 200px)',
+    gridTemplateColumns: 'repeat(auto-fill, 300px)',
     gridGap: '0.8em',
     justifyContent: 'center',
   },
@@ -33,9 +33,11 @@ const styles = (theme: Theme) => createStyles({
   },
   status: {
     width: '100%',
+    display: 'flex',
+    justifyContent: 'space-between',
   },
   statusText: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing.unit * 3,
   },
   root: {
     width: '100%',
@@ -63,9 +65,9 @@ class Sensor extends React.Component<SensorPorps & WithStyles<keyof AppStyles>> 
       );
     }
     return (
-    <Typography variant="display1" style={{ color: 'pink' }}  className={classes.statusText}>
-      Disconnected ti smartphone. please check your myriad app is launched.
-    </Typography>
+        <Typography variant="display1" style={{ color: 'pink' }}  className={classes.statusText}>
+          Disconnected to smartphone. please check your myriad app is launched.
+        </Typography>
     );
   }
 
@@ -76,7 +78,6 @@ class Sensor extends React.Component<SensorPorps & WithStyles<keyof AppStyles>> 
         <div className={classes.root}>
           <div className={classes.status}>
             {this.createStatusText()}
-           <Divider />
           </div>
         <div className={classes.container}>
           {
@@ -89,6 +90,11 @@ class Sensor extends React.Component<SensorPorps & WithStyles<keyof AppStyles>> 
                         title={view.label}
                         subheader={param.enabled ? 'active' : 'inactive'}
                       />
+                      <CardContent>
+                        <Typography>
+                          {createTimeStamp(param.timeStamp)}
+                        </Typography>
+                      </CardContent>
                       {
                         view.createDetailComponent(sensors[key])
                       }

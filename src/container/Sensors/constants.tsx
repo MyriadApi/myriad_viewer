@@ -12,7 +12,6 @@ export interface SensorView {
 
 export const createTimeStamp = (time: number) => {
   const date = new Date(time);
-  return 'aaa';
   return `${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}/${date.getHours()}/
           :${date.getMinutes()}:${date.getSeconds()}.${date.getMilliseconds()}`;
 };
@@ -102,7 +101,7 @@ const prox =  {
     return (
     <CardContent>
       <Typography>
-        near: {param.isNear}
+        near: {param.isNear ? 'near' : 'far'}
       </Typography>
       <Typography>
         value: {param.value}
